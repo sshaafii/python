@@ -159,13 +159,78 @@ def summariseReq(filename):
     
     for key,val in output.items():
         print(f'Response code {key} had {val} requests')
+        
+        
+import csv
+
+def passwd_to_csv(passwdFile,outputFile):
+    
+    output = {}
+    
+    with open(outputFile, 'w') as o:
+    
+        with open(passwdFile) as f:
+            
+            input = csv.reader(f,delimiter=':')
+            output = csv.writer(o,delimiter='\t')
+            
+            for line in input:
+                if line and line[0] == '#':
+                    continue
+                output.writerow([line[0],line[2]])
+            
+    import csv
+    
+    
+def dictCSV(outputFile):
+       
+       mp = {'name':'bob'}
+       
+       with open(outputFile,'w') as o:
+           
+        output = csv.writer(o,delimiter=':')
+           
+        for key,val in mp.items():
+            output.writerow([key,val,str(type(key))])
+            
+           
+dictCSV('python-workout/output.txt')
+                    
+            
+        
+        
+        
+        
+
+import csv
+import json
+def passwd_to_json(filename):
+    
+    output = []
+    
+    with open(filename,'r') as f:
+        
+        for line in csv.reader(f,delimiter=':'):
+            output.append(tuple(line))
+            
+    return json.dumps(output)
+    
+
+passwd_to_json('python-workout/text.txt')
+
+        
+
+
+
+#print(passwd_to_csv('python-workout/text.txt','python-workout/output.txt'))
+    
+    
+    
 
 
 
 
-
-
-summariseReq('python-workout/mini-access-log.txt')
+#summariseReq('python-workout/mini-access-log.txt')
 
 
 #print(find_all_longest_words('python-workout'))
